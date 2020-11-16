@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DadosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tb_pessoa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tb_telefone">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numero" Type="varchar" MaxLength="50" />
+    <Property Name="tipo" Type="varchar" MaxLength="50" />
+    <Property Name="id_pessoa" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tb_telefone_tb_pessoa">
+    <End Role="tb_pessoa" Type="Self.tb_pessoa" Multiplicity="1" />
+    <End Role="tb_telefone" Type="Self.tb_telefone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_pessoa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tb_telefone">
+        <PropertyRef Name="id_pessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DadosModelStoreContainer">
+    <EntitySet Name="tb_pessoa" EntityType="Self.tb_pessoa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_telefone" EntityType="Self.tb_telefone" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tb_telefone_tb_pessoa" Association="Self.FK_tb_telefone_tb_pessoa">
+      <End Role="tb_pessoa" EntitySet="tb_pessoa" />
+      <End Role="tb_telefone" EntitySet="tb_telefone" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

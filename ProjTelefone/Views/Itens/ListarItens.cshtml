@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProjTelefone.tb_telefone>
+<div class="form-horizontal">
+    <h4>Telefones</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2">Número</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="numero" name="numero" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Tipo</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" id="tipo" name="tipo" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="#" class="btn btn-default" onclick="SalvarTelefones();">Add Telefone</a>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="idPessoa" value="@ViewBag.Pessoa" />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+</table>
